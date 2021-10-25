@@ -29,7 +29,7 @@ div.voting-power > span > a {
 
 <script type="text/discourse-plugin" version="0.8">
     const tokenAddress = '0xd9958826bce875a75cc1789d5929459e6ff15040';
-    const alchemyKey = 'st8j5vqpEXjaM2gcdcR6uQZoyLN1gwXS';
+    const alchemyKey = 'st8j5vqpEXjaM2gcdcR6uQZoyLN1gwXS'; // from https://www.alchemy.com/
     const provider = new ethers.providers.AlchemyProvider('homestead', alchemyKey);
     const abi = ["function votingPower(address address) view returns (uint256)"];
     const token = new ethers.Contract(tokenAddress, abi, provider);
@@ -51,7 +51,7 @@ div.voting-power > span > a {
             return new Promise(async (resolve, reject) => {
                 try {
                     const address = await provider.resolveName(this.attrs.username);
-                    const power = await token.votingPower(address); // use token.balanceOf(address) if ti's a simple ERC20 token
+                    const power = await token.votingPower(address); // use token.balanceOf(address) if it's a simple ERC20 token
                     this.state.power = numberWithCommas(Math.floor(power.toString() / 1e18));
                 }
                 catch (e) {
