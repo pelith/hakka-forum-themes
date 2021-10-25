@@ -2,7 +2,7 @@
 
 ### edit path
 
-https://forum.hakka.finance/admin/customize/themes/1/common/scss/edit
+https://your.discourse.url/admin/customize/themes/1/common/scss/edit
 
 
 ### css
@@ -28,9 +28,10 @@ div.voting-power > span > a {
 </script>
 
 <script type="text/discourse-plugin" version="0.8">
+    const tokenAddress = '0xd9958826bce875a75cc1789d5929459e6ff15040';
     const provider = new ethers.providers.AlchemyProvider('homestead','st8j5vqpEXjaM2gcdcR6uQZoyLN1gwXS');
     const abi = ["function votingPower(address address) view returns (uint256)"];
-    const shakka = new ethers.Contract('0xd9958826bce875a75cc1789d5929459e6ff15040', abi, provider);
+    const token = new ethers.Contract(tokenAddress, abi, provider);
     
     const h = require("virtual-dom").h;
 
@@ -49,7 +50,7 @@ div.voting-power > span > a {
             return new Promise(async (resolve, reject) => {
                 try {
                     const address = await provider.resolveName(this.attrs.username);
-                    const power = await shakka.votingPower(address);
+                    const power = await token.votingPower(address); // use token.balanceOf(address) if ti's a simple ERC20 token
                     this.state.power = numberWithCommas(Math.floor(power.toString() / 1e18));
                 }
                 catch (e) {
