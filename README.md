@@ -29,7 +29,8 @@ div.voting-power > span > a {
 
 <script type="text/discourse-plugin" version="0.8">
     const tokenAddress = '0xd9958826bce875a75cc1789d5929459e6ff15040';
-    const provider = new ethers.providers.AlchemyProvider('homestead','st8j5vqpEXjaM2gcdcR6uQZoyLN1gwXS');
+    const alchemyKey = 'st8j5vqpEXjaM2gcdcR6uQZoyLN1gwXS';
+    const provider = new ethers.providers.AlchemyProvider('homestead', alchemyKey);
     const abi = ["function votingPower(address address) view returns (uint256)"];
     const token = new ethers.Contract(tokenAddress, abi, provider);
     
